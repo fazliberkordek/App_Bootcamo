@@ -1,7 +1,7 @@
 # bootcamp_app
 
 A new Flutter project.
-TO DOWLOAND: https://github.com/fazliberkordek/App_Bootcamo/releases
+TO DOWLOAND go for the Assets: https://github.com/fazliberkordek/App_Bootcamo/releases
 
 ## Getting Started
 
