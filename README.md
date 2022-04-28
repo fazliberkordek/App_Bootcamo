@@ -1,4 +1,4 @@
-# bootcamp_app
+# bootcamo_app
 
 A new Flutter project.
 TO DOWLOAND go for the Assets: https://github.com/fazliberkordek/App_Bootcamo/releases
