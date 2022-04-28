@@ -1,90 +1,102 @@
 import 'package:flutter/material.dart';
+import 'next_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        
-        primarySwatch: Colors.blue, 
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: MyAppExt(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
+class MyAppExt extends StatefulWidget {
+  MyAppExt({Key? key}) : super(key: key);
   
-  final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyAppExt> createState() => _MyAppExtState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      
-      _counter++;
-    });
-  }
-
+class _MyAppExtState extends State<MyAppExt> {
+  String buttonName = 'Click';
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: const Text('The Bootcamp Application Demo'),
+        ),
+        body: Center(
+            child: currentIndex == 0
+                ? Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: const Color.fromARGB(177, 174, 163, 41),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            onPrimary: Colors.black,
+                            primary: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              buttonName = 'Clicked';
+                            });
+                          },
+                          child: Text(buttonName),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              onPrimary: Colors.white, primary: Colors.black),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    const NextPage()));
+                          },
+                          child: const Text('Next Page'),
+                        ),
+                      ],
+                    ),
+                  )
+                : Image.asset("C:/src/projects/bootcamp_app/images/404.jpg")),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              label: 'Home',
+              icon: Icon(Icons.home),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            BottomNavigationBarItem(
+              label: 'Profile',
+              icon: Icon(Icons.person),
             ),
           ],
+          currentIndex: currentIndex,
+          onTap: (int index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      );
   }
 }
